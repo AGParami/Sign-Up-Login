@@ -1,14 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import LoginScreen from './app/screens/LoginScreen';
+import Navigator from './app/routes/LoginStack';
+import { useEffect } from 'react';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const[isLoading, setisLoading] = React.useState(true);
+  const[userToken, setUserToken] = React.useState(null);
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setisLoading(false);
+    }, 1000);    
+  }, []);
+
+  if(isLoading){
+    return(
+      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+        <ActivityIndicator size="large" color="#808080"/>
+      </View>
+    );
+  };
+  return (<Navigator/>);
+  
+  //<LoginScreen/>;
 }
 
 const styles = StyleSheet.create({
